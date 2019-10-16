@@ -1,0 +1,30 @@
+syntax = "proto3";
+
+package order.api.v1;
+
+enum Status {
+    Started = 0;
+    InProgress = 1;
+    Completed = 2;
+    Refunded = 3;
+}
+
+message Order {
+    string uuid = 1;
+    string product_uuid = 2;
+    int32 quantity = 3;
+    float amount = 4;
+    string currency = 5;
+    Status status = 6;
+    int64 timestamp = 7;
+}
+
+message RequestBy {
+    string uuid = 1;
+}
+
+service OrderService{
+    rpc CreateOrder(Order) returns (Order) {}
+    rpc UpdateOrder(Order) returns (Order) {}
+    rpc GetOrder(RequestBy) returns (Order) {}
+}
